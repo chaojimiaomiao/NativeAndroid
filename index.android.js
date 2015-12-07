@@ -37,18 +37,20 @@ var NativeAndroid = React.createClass({
   },
 
   render: function() {
+/*
     return (
-      <MainScreen  backgroundColor="#eee"/>
+      <MainScreen/>
     );
-    // if (this.state.splashed) {
-    //   return (
-    //     <MainScreen />
-    //   );
-    // } else {
-    //   return (
-    //     <SplashScreen />
-    //   );
-    // }
+*/
+    if (this.state.splashed) {
+      return (
+        <MainScreen />
+      );
+    } else {
+      return (
+        <SplashScreen />
+      );
+    }
   },
 });
 
