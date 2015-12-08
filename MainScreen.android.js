@@ -12,8 +12,10 @@ var {
   Dimensions,
 } = React;
 
-var MainScreen = React.createClass({
 
+var SwipeRefreshLayoutAndroid = require('./SwipeRereshLayout');
+
+var MainScreen = React.createClass({
   getInitialState: function() {
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     return {
@@ -27,25 +29,36 @@ var MainScreen = React.createClass({
     this._pressData = {};
   },
 
+  onRefresh: function() {
+	  
+  },
   render: function() {
-    return (
-      // ListView wraps ScrollView and so takes on its properties.
-      // With that in mind you can use the ScrollView's contentContainerStyle prop to style the items.
-      <ListView
-        contentContainerStyle={styles.list}
-        dataSource={this.state.dataSource}
-        renderRow={this._renderRow}
-      />
+    return ( 
+	   <View>
+	      <SwipeRefreshLayoutAndroid
+            ref={(swipeRefreshLayout) => { this.swipeRefreshLayout = swipeRefreshLayout; }}
+            onRefresh={this.onRefresh}>
+          </SwipeRefreshLayoutAndroid>
+          
+		  // ListView wraps ScrollView and so takes on its properties.
+		  // With that in mind you can use the ScrollView's contentContainerStyle prop to style the items.
+          <ListView
+		  	contentContainerStyle={styles.list}
+		  	dataSource={this.state.dataSource}
+		  	renderRow={this._renderRow}
+		  />
+      </View>
     );
   },
 
   _renderRow: function(rowData: array, sectionID: number, rowID: number) {
     return (
-      <TouchableHighlight>
+		<TouchableHighlight>
         <View>
           <View style={styles.row}>
-          	<View style={styles.view1}>
+          	<View style={styles.usrView}>
           		<Image source={require('./thumbnails/avatar.png')} style={styles.avatarImage} />
+          		{/* 用户名 */}
           		<View style={{flexDirection: 'column'}}>
 		  			<Text style={{fontSize:13, marginTop: 6}} >
 		  				小百姓
@@ -90,10 +103,11 @@ var styles = StyleSheet.create({
     margin: 6,
     marginRight: 0,
     width: 162,
-    height: 260,
+    height: 240,
     backgroundColor : '#fff',
   },
-  view1: {
+  //写用户的view
+  usrView: {
 	flex: 1,
     width: 162,
     height: 80,
@@ -104,8 +118,9 @@ var styles = StyleSheet.create({
     height: 30,
     margin: 8,
   },
+  
   thumb: {
-	marginTop: 10,
+	marginTop: 16,
     width: 162,
     height: 140,
   },
@@ -117,7 +132,6 @@ var styles = StyleSheet.create({
   },
   priceText: {
     flex: 1,
-    marginBottom: 6,
     marginLeft: 10,
     fontSize: 15,
     color: '#FF0066',

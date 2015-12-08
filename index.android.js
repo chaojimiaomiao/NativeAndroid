@@ -37,11 +37,12 @@ var NativeAndroid = React.createClass({
   },
 
   render: function() {
-/*
+
     return (
       <MainScreen/>
     );
-*/
+
+/*
     if (this.state.splashed) {
       return (
         <MainScreen />
@@ -51,6 +52,7 @@ var NativeAndroid = React.createClass({
         <SplashScreen />
       );
     }
+*/
   },
 });
 
